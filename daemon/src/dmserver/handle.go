@@ -113,7 +113,7 @@ func handleRequest(request Request) Response {
 		// 运行这个服务器
 		if server,ok := serverSaved[request.OperateID];ok {
 			if server.Status != SERVER_STATUS_CLOSED {
-				return Response{-1,"Server Running or staring"}
+				return Response{-1,"Server is running or staring!"}
 			}
 			err := server.Start()
 			if err == nil {
@@ -174,7 +174,7 @@ func handleRequest(request Request) Response {
 		}
 		// 解析成功且没有错误
 		go install(config)
-		return Response{0, "OK,Installing"}
+		return Response{0, "OK,installing"}
 
 	case "SetServerConfig":
 		var elements []ServerAttrElement
@@ -204,7 +204,7 @@ func handleRequest(request Request) Response {
 				return Response{0,"Send OK"}
 			}
 		} else {
-			return Response{-1,"Invalid Server id"}
+			return Response{-1,"Invalid server id"}
 		}
 	case "GetServerPlayers":
 		if index := searchRunningServerByID(request.OperateID);index >=0{

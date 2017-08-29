@@ -28,14 +28,14 @@ func main() {
 		printInfo()
 	} // 如果需要调试本程序，那么加上-jump参数可以跳过打印.
 	if !isRoot() {
-		fmt.Println(colorlog.ColorSprint("Need root permission.", colorlog.FR_RED))
+		fmt.Println(colorlog.ColorSprint("Need root permission!", colorlog.FR_RED))
 		return
 	}
 	rand.Seed(time.Now().UnixNano())
-	colorlog.LogPrint("Reading config file")
+	colorlog.LogPrint("Reading config file...")
 	config, _ = conf.GetConfig(FILE_CONFIGURATION)
-	colorlog.LogPrint("Configuration get done")
-	colorlog.LogPrint("Checking Update")
+	colorlog.LogPrint("Configuration get done!")
+	colorlog.LogPrint("Checking Update...")
 	if versionCode, err := checkUpdate(); err != nil {
 		colorlog.ErrorPrint(err)
 	} else {
@@ -47,15 +47,15 @@ func main() {
 		} else if versionCode == 1 {
 			colorlog.WarningPrint("Small bugs fixed,You choose to updated it or not.")
 		} else {
-			colorlog.LogPrint("Lastest Version")
+			colorlog.LogPrint("This is the lastest version")
 		}
 	}
-	colorlog.PointPrint("Starting Server Manager.")
+	colorlog.PointPrint("Starting Server Manager...")
 	go dmserver.StartDaemonServer(config)
 	go filetrans.ListenAndServe(config)
-	colorlog.PointPrint("Starting websocket server")
+	colorlog.PointPrint("Starting websocket server...")
 	go dmserver.Webskt()
-	colorlog.PointPrint("Starting ValidationKeyUpdater.")
+	colorlog.PointPrint("Starting ValidationKeyUpdater...")
 	go auth.ValidationKeyUpdate(config.DaemonServer.ValidationKeyOutDateTimeSeconds)
 	colorlog.LogPrint("Done,type \"?\" for help. ")
 	for {

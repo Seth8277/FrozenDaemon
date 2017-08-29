@@ -13,7 +13,7 @@ func (s *ServerRun) processOutputLine(line string /*,startReg *regexp.Regexp,joi
 	joinReg := regexp.MustCompile("(\\w+)\\[.+\\] logged in")
 	leftReg := regexp.MustCompile("(\\w+) left the game.")
 	if startReg.MatchString(line) {
-		colorlog.PointPrint("Server Started!")
+		colorlog.PointPrint("Server started!")
 		if server,ok := serverSaved[s.ID]; ok {
 			server.Status = SERVER_STATUS_RUNNING
 		}

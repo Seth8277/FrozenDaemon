@@ -63,13 +63,13 @@ func (m *Module) install() error {
 
 	isMatch, err2 := md5Check("../exec/~temp.zip", m.Md5)
 	if err2 != nil {
-		fmt.Println("Error with md5 check:" + err2.Error())
+		fmt.Println("Error with MD5 check:" + err2.Error())
 		return err2
 	} else if !isMatch {
-		fmt.Println("Md5 mismatch")
-		return errors.New("Md5 mismatch.")
+		fmt.Println("MD5 mismatch")
+		return errors.New("MD5 mismatch.")
 	} else {
-		fmt.Println("Md5 check done.")
+		fmt.Println("MD5 check done.")
 	}
 
 	r, err := zip.OpenReader("../exec/~temp.zip")
@@ -125,10 +125,10 @@ func (e *ExecInstallConfig) downloadExecAndConf() {
 		fmt.Println("Error compute md5:" + err3.Error())
 	}
 	if !res {
-		fmt.Println("Md5 check failed")
+		fmt.Println("MD5 check failed")
 		return
 	} else {
-		fmt.Println("Md5 check ok")
+		fmt.Println("MD5 check OK")
 	}
 	conn.Body.Close()
 	execConfFile, err2 := os.Create("../exec/" + e.StartConf.Name + ".json")
@@ -138,15 +138,15 @@ func (e *ExecInstallConfig) downloadExecAndConf() {
 	b, _ := json.Marshal(e.StartConf)
 	execConfFile.Write(b)
 	execConfFile.Close()
-	fmt.Println("Done")
+	fmt.Println("Done!")
 }
 func md5Check(name string, sum string) (bool, error) {
-	fmt.Println("Checking md5 sum " + name)
+	fmt.Println("Checking MD5 sum " + name)
 	data, err := ioutil.ReadFile(name)
 	if err != nil {
 		return false, err
 	}
 	md5bytes := md5.Sum(data)
-	fmt.Println("Md5:" + fmt.Sprintf("%x", md5bytes))
+	fmt.Println("MD5:" + fmt.Sprintf("%x", md5bytes))
 	return fmt.Sprintf("%x", md5bytes) == sum, nil
 }
